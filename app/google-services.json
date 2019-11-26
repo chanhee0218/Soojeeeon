@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "618747331558",
+    "firebase_url": "https://sojeeon.firebaseio.com",
+    "project_id": "sojeeon",
+    "storage_bucket": "sojeeon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618747331558:android:01874bc635cf2d42a3cc27",
+        "android_client_info": {
+          "package_name": "com.chanhee.sojeeon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "618747331558-77fb2l1j8cmqr1boilua46l5ldbri17j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chanhee.sojeeon",
+            "certificate_hash": "e1106d6870509a90f154ffd1e426333789e56bd7"
+          }
+        },
+        {
+          "client_id": "618747331558-34ralsr056jf5pvrrumnm2g3krrth4rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQuWIcUy498o8L6vfBesjEossacbylUWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "618747331558-34ralsr056jf5pvrrumnm2g3krrth4rf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
