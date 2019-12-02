@@ -20,28 +20,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class TalkActivity extends AppCompatActivity {
-    String ChatName,ChatScript;
-    ListView listView;
+    String ChatName;
+    ListView chatlist;
     Button chatbtn;
     EditText talkEdit,who;
-    FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+    FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
     DatabaseReference databaseReference=firebaseDatabase.getReference("message");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_talk);
-        listView=findViewById(R.id.talkList);
+        chatlist=findViewById(R.id.talkList);
         chatbtn=findViewById(R.id.btnTalk);
         talkEdit=findViewById(R.id.editTalk);
         who=findViewById(R.id.who);
+        openChat(ChatName);
         chatbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(talkEdit==null&&who==null){
-                    Toast.makeText(TalkActivity.this, "입력 양식을 확인 하십시오", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(TalkActivity.this, "입력 양식을 확인하세요", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                ChatDTO chatDTO=new ChatDTO(ChatName,who.getText().toString());
+                ChatDTO chat=new ChatDTO(ChatName,talkEdit.getText().toString());
                 databaseReference.child("chat").child(ChatName).push().setValue(chat);
                 who.setText("");
             }
@@ -49,12 +52,11 @@ public class TalkActivity extends AppCompatActivity {
     }
     private void addMessage(DataSnapshot dataSnapshot, ArrayAdapter<String> adapter){
         ChatDTO chatDTO=dataSnapshot.getValue(ChatDTO.class);
-        adapter.add(chatDTO.getUserName()+":"+ chatDTO.getMessage());
-
+        adapter.add(chatDTO.getUserName()+" : "+ chatDTO.getMessage());
     }
-    private  void removeMesaage(DataSnapshot dataSnapshot, ArrayAdapter<String> adapter){
-        ChatDTO chatDTO=dataSnapshot.getValue(ChatDTO.class);
-        adapter.remove(chatDTO.getUserName()+":"+chatDTO.getMessage());
+    private void removeMesaage(DataSnapshot dataSnapshot, ArrayAdapter<String> adapter){
+        ChatDTO chatDTO= dataSnapshot.getValue(ChatDTO.class);
+        adapter.remove(chatDTO.getUserName()+" : "+ chatDTO.getMessage());
     }
     private void openChat(String chatName){
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1);
@@ -62,7 +64,7 @@ public class TalkActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 addMessage(dataSnapshot,adapter);
-                Log.e("Log", "s"+s);
+                Log.e("Log", "s:"+s);
             }
 
             @Override
@@ -72,7 +74,7 @@ public class TalkActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                removeMesaage(dataSnapshot,adapter);
             }
 
             @Override
@@ -84,8 +86,6 @@ public class TalkActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        })
-
-        )
+        });
     }
 }

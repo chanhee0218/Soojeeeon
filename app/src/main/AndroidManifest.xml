@@ -10,11 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.geo.API_KEY"
+            android:value="AIzaSyD6KndZt1q1lMi-EK_hC91erhPjkkaimXc"/>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".TalkActivity" />
         <activity android:name=".Calander" />
         <activity android:name=".TodoActivity" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -21,6 +21,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/edittxtt"
+        app:layout_constraintVertical_bias="0.7"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
@@ -31,6 +32,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittxtt"
+        android:id="@+id/btn"
         android:text="전송하기"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

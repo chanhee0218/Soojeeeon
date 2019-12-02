@@ -1,10 +1,10 @@
 package com.chanhee.sojeeon;
 
-class ChatDTO {
+public class ChatDTO {
     private String userName;
     private String message;
-    public  ChatDTO(){}
-    public ChatDTO(String userName,String message){
+    public ChatDTO(){}
+    public ChatDTO(String userName, String message){
         this.userName=userName;
         this.message=message;
 
