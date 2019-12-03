@@ -26,8 +26,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/SignIn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPw"
         android:text="로그인 하기"/>
-
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleSignin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SignIn"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
