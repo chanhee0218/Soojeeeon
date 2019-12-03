@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class TodoActivity extends AppCompatActivity {
     String Do;
     String WhenDate;
     ListView listView;
+    String TAG;
     private FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference=firebaseDatabase.getReference();
     private ChildEventListener childEventListener;
@@ -45,16 +47,17 @@ public class TodoActivity extends AppCompatActivity {
         Do=editTodo.getText().toString();
         listView=findViewById(R.id.ListView);
 
-        arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, new ArrayList<String>());
+        arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
         listView.setAdapter(arrayAdapter);
-        initDataBase();
+//        initDataBase();
         databaseReference=firebaseDatabase.getReference("message");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayAdapter.clear();
                 for(DataSnapshot messageData:dataSnapshot.getChildren()){
-                    String msg=messageData.getValue().toString();
+                    String msg=messageData.getValue(String.class);
+
                     Array.add(msg);
                     arrayAdapter.add(msg);
                 }
@@ -64,7 +67,7 @@ public class TodoActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.w(TAG, "Failed to read Value", databaseError.toException());
             }
         });
 
@@ -73,16 +76,15 @@ public class TodoActivity extends AppCompatActivity {
         WhenDate=intent.getStringExtra("day");
         Toast.makeText(this, ""+WhenDate, Toast.LENGTH_SHORT).show();
 
-        btncheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                databaseReference.child(WhenDate).setValue(Do);
-
-            }
-        });
+        btncheck.setOnClickListener(v ->
+                databaseReference.child(WhenDate).setValue(Do)
+        );
 
     }
     private void initDataBase(){
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
+        databaseReference.child(WhenDate).setValue(Do);
         childEventListener=new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -112,11 +114,10 @@ public class TodoActivity extends AppCompatActivity {
         databaseReference.addChildEventListener(childEventListener);
 
     }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         databaseReference.removeEventListener(childEventListener);
     }
+
 }

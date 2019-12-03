@@ -36,9 +36,9 @@ public class Calander extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Calander.this,TodoActivity.class);
-                intent.putExtra("day", Date);
-                startActivity(intent);
+                Intent intent1=new Intent(Calander.this,TodoActivity.class);
+                intent1.putExtra("day", Date);
+                startActivity(intent1);
             }
         });
 
